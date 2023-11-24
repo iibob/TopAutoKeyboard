@@ -1,4 +1,7 @@
 # TopAutoKeyboard
+开发初衷：
+
+常年使用键盘快捷键操作作图软件，导致左颈、肩、臂、指不同程度病变。因右手操作数位板，暂无明显不适，往后就让右手多承担一点吧 :joy:
 
 ![image](https://github.com/iibob/TopAutoKeyboard/assets/10295975/57ce27f0-88b3-45b4-857d-a6775a5fbba8)
 
