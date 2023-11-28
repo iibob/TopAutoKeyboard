@@ -17,6 +17,11 @@
 
 ![image](https://github.com/iibob/TopAutoKeyboard/assets/10295975/57ce27f0-88b3-45b4-857d-a6775a5fbba8)
 
+**使用：**
+1. 安装[AutoHotkey](https://www.autohotkey.com/)
+2. 运行脚本（脚本有较多全局生效的自定义快捷键，可在代码尾部删除）
+<br/>
+
 ## 更新日志
 **2023年11月28日 V1.1.1**
 - 优化切换输入法逻辑，避免切换输入法后，按键会在输入法切换之前执行的问题
