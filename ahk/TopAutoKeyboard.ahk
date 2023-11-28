@@ -3,16 +3,12 @@
 ProcessSetPriority 'B'
 MyGui := Gui('+AlwaysOnTop +ToolWindow', 'TopAutoKeyboard')
 
-tabList := ['Code','PY','PS','浏览器','文件夹','其他'] ; 列表元素需要与下方map的value对应
-procMap := Map('Code','Code','pycharm64','PY','Photoshop','PS','chrome','浏览器','explorer','文件夹')
-version := 'version 1.1.0'
-proc := '' ; 进程名
-translationResults := []
-tabLock := false
-HideWindow := false
+tabList := ['Code','PY','PS','浏览器','文件夹','其他'] ; 列表元素需要与 procMap 的value对应
+version := 'version 1.1.1'
 XSize := 280 ; 隐藏后，窗口减小的尺寸。注意不能大于GuiWidth
 GuiWidth := 340
 GuiHeight := 460
+; GuiHeight := 520
 
 
 
@@ -36,7 +32,7 @@ Btn44 := MyGui.AddButton('yp x+3 wp  hp  Default', 'C↓')
 Btn45 := MyGui.AddButton('yp x+3 wp  hp  Default', 'S↓')
 Btn46 := MyGui.AddButton('yp x+3 wp  hp  Default', 'CS↓')
 Btn41.OnEvent("Click", openAFolder) ; 打开资源管理器
-Btn42.OnEvent("Click", screenshot) ; 截屏
+Btn42.OnEvent("Click", btnScreenshot) ; 截屏
 Btn43.OnEvent("Click", screenshot_t) ; 显示/隐藏屏幕中的贴图
 Btn44.OnEvent("Click", SwitchCtrl) ; 按下/松开 Ctrl
 Btn45.OnEvent("Click", SwitchShift) ; 按下/松开 Shift
@@ -74,11 +70,11 @@ Btn13 := MyGui.AddButton('yp x+3 wp  hp  Default', '全')
 Btn14 := MyGui.AddButton('yp x+3 wp  hp  Default', '剪')
 Btn15 := MyGui.AddButton('yp x+3 wp  hp  Default', '撤')
 Btn16 := MyGui.AddButton('yp x+3 wp  hp  Default', '粘-')
-Btn11.OnEvent("Click", copy) ; 复制选中的文本或对象
-Btn12.OnEvent("Click", paste) ; 粘贴文本或对象
-Btn13.OnEvent("Click", all) ; 全选文本或对象
-Btn14.OnEvent("Click", cut) ; 剪切文本或对象
-Btn15.OnEvent("Click", revoke) ; 撤销先前的操作
+Btn11.OnEvent("Click", btnCopy) ; 复制选中的文本或对象
+Btn12.OnEvent("Click", btnPaste) ; 粘贴文本或对象
+Btn13.OnEvent("Click", btnAll) ; 全选文本或对象
+Btn14.OnEvent("Click", btnCut) ; 剪切文本或对象
+Btn15.OnEvent("Click", btnRevoke) ; 撤销先前的操作
 Btn16.OnEvent("Click", pasteClearFormat) ; 清除文本格式 粘贴
 
 
@@ -121,7 +117,7 @@ tabBtn24.OnEvent("Click", moveUp_py) ; 整行向上移动
 tabBtn25.OnEvent("Click", moveDown_py) ; 整行向下移动
 tabBtn26.OnEvent("Click", deleteEntireRow_py) ; 整行删除
 tabBtn27.OnEvent("Click", copyEntireRow_py) ; 整行复制
-tabBtn28.OnEvent("Click", commented_code) ; 注释代码
+tabBtn28.OnEvent("Click", commented_py) ; 注释代码
 
 Tab.UseTab(3)
 tabBtn31 := MyGui.AddButton('     x+0 w50 h30 Default', '图像')
@@ -146,26 +142,36 @@ tabBtn41 := MyGui.AddButton('     x+0 w50 h30 Default', '刷新')
 tabBtn42 := MyGui.AddButton('yp   x+3 wp  hp  Default', '关闭')
 tabBtn43 := MyGui.AddButton('yp   x+3 wp  hp  Default', '密码')
 tabBtn44 := MyGui.AddButton('yp   x+3 wp  hp  Default', '新')
-tabBtn45 := MyGui.AddButton('yp   x+3 wp  hp  Default', '无痕')
-tabBtn46 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '右')
-tabBtn47 := MyGui.AddButton('yp   x+3 wp  hp  Default', '左')
+tabBtn45 := MyGui.AddButton('yp   x+3 wp  hp  Default', '重开')
+tabBtn46 := MyGui.AddButton('yp   x+3 wp  hp  Default', '无痕')
+tabBtn47 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '右')
+tabBtn48 := MyGui.AddButton('yp   x+3 wp  hp  Default', '左')
 tabBtn41.OnEvent("Click", refresh_chrome) ; 刷新
 tabBtn42.OnEvent("Click", close_chrome) ; 关闭选项卡
 tabBtn43.OnEvent("Click", password_chrome) ; 打开密码箱
 tabBtn44.OnEvent("Click", new_chrome) ; 新建选项卡
-tabBtn45.OnEvent("Click", newTraceless_chrome) ; 新建无痕窗口
-tabBtn46.OnEvent("Click", rightTab_chrome) ; 切换到右侧选项卡
-tabBtn47.OnEvent("Click", leftTab_chrome) ; 切换到左侧选项卡
+tabBtn45.OnEvent("Click", reopen_chrome) ; 重新打开关闭的选项卡
+tabBtn46.OnEvent("Click", newTraceless_chrome) ; 新建无痕窗口
+tabBtn47.OnEvent("Click", rightTab_chrome) ; 切换到右侧选项卡
+tabBtn48.OnEvent("Click", leftTab_chrome) ; 切换到左侧选项卡
 
 Tab.UseTab(5)
-tabBtn51 := MyGui.AddButton('   x+0 w50 h30 Default', '关闭')
-tabBtn52 := MyGui.AddButton('yp x+3 wp  hp  Default', '新建')
-tabBtn53 := MyGui.AddButton('yp x+3 wp  hp  Default', '命名')
-tabBtn54 := MyGui.AddButton('yp x+3 wp  hp  Default', 'PS')
-tabBtn51.OnEvent("Click", close_chrome) ; 关闭窗口
+tabBtn51 := MyGui.AddButton('     x+0 w50 h30 Default', '关闭')
+tabBtn52 := MyGui.AddButton('yp   x+3 wp  hp  Default', '新建')
+tabBtn53 := MyGui.AddButton('yp   x+3 wp  hp  Default', '命名')
+tabBtn54 := MyGui.AddButton('yp   x+3 wp  hp  Default', 'PS')
+tabBtn55 := MyGui.AddButton('yp   x+3 wp  hp  Default', '列')
+tabBtn56 := MyGui.AddButton('yp   x+3 wp  hp  Default', '详情')
+tabBtn57 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '大')
+tabBtn58 := MyGui.AddButton('yp   x+3 wp  hp  Default', '超大')
+tabBtn51.OnEvent("Click", close_explorer) ; 关闭窗口
 tabBtn52.OnEvent("Click", newFolder_explorer) ; 新建文件夹
 tabBtn53.OnEvent("Click", renameFile_explorer) ; 重命名文件
 tabBtn54.OnEvent("Click", psOpenFile_explorer) ; PS 打开文件
+tabBtn55.OnEvent("Click", list_explorer) ; 文件查看方式：列表
+tabBtn56.OnEvent("Click", information_explorer) ; 文件查看方式：详细信息
+tabBtn57.OnEvent("Click", largeIcons_explorer) ; 文件查看方式：大图标
+tabBtn58.OnEvent("Click", extraLargeIcons_explorer) ; 文件查看方式：越大图标
 
 Tab.UseTab(6)
 MyEdit_y := 213 ; 控件Y轴位置，上方每一行btn控件加间隙的高度为37
@@ -210,8 +216,10 @@ MyGui.OnEvent("ContextMenu", Hide) ; 鼠标右键点击窗口后隐藏部分窗�
 show := () => MyGui.Show('w' GuiWidth 'h' GuiHeight 'NoActivate') ; NoActivate 让当前活动窗口继续保持活动状态.
 SetTimer(update, 250), show()
 
+tabLock := false
 update() {
-  Global proc, procMap, tabLock
+  Global proc := '' ; 进程名
+  static procMap := Map('Code','Code','pycharm64','PY','Photoshop','PS','chrome','浏览器','WeChat','文件夹','explorer','文件夹')
   if !tabLock {
     Try If WinGetClass('A') != 'AutoHotkeyGUI' {
       ; btn002.Text := WinGetClass("A")
@@ -231,9 +239,53 @@ update() {
 }
 
 
+ButtonClickCount := Map() ; 初始化按钮点击次数的对象
+UpdateInterval := 7200000  ; 设置每2小时更新的时间间隔，1小时 = 60分钟 * 60秒 * 1000毫秒
+SetTimer SaveButtonClickCount, UpdateInterval
+
+
+; 按钮点击事件处理函数
+ButtonClick(buttonName) {
+  Value := ButtonClickCount.Get(buttonName, 0) ; 0 是查找不到返回的值
+
+  ; 更新按钮点击次数
+  if Value {
+    ButtonClickCount[buttonName] += 1
+    ; MsgBox buttonName ' ' Value
+  } else {
+    ButtonClickCount[buttonName] := 1
+    ; MsgBox buttonName  ' ' Value
+  }
+  ; MsgBox buttonName
+}
+
+; 保存按钮点击次数到本地文件
+SaveButtonClickCount(*) {
+  Global ButtonClickCount
+  FileName := A_WorkingDir '\ButtonLog.txt'
+  FileObj := FileOpen(FileName, "a")
+  TimeString := FormatTime('R') ; 当前时间年月日时分秒格式的字符串
+  FileObj.Write(TimeString '`n' ButtonClickCountToString())
+  FileObj.Close()
+  ButtonClickCount := Map() ; 清空按钮点击次数
+}
+
+; 将按钮点击次数转换为字符串
+ButtonClickCountToString(*) {
+    result := ""
+    for key, value in ButtonClickCount
+        result := result key ": " value "`n"
+    return result
+}
+
 
 
 ; 按钮函数 ------------------------------------------------------------------------------------------
+
+btnCopy(*) {
+  copy
+  ButtonClick('Btn11')
+}
 
 copy(*) {
   Send "!{Esc}"
@@ -241,10 +293,32 @@ copy(*) {
   Send "^c"
 }
 
-paste(*) {
+btnPaste(*) {
   Send "!{Esc}"
   sleep 150
   Send "^v"
+  ButtonClick('Btn12')
+}
+
+btnAll(*) {
+  Send "!{Esc}"
+  sleep 150
+  Send "^a"
+  ButtonClick('Btn13')
+}
+
+btnCut(*) {
+  Send "!{Esc}"
+  sleep 150
+  Send "^x"
+  ButtonClick('Btn14')
+}
+
+btnRevoke(*) {
+  Send "!{Esc}"
+  sleep 150
+  Send "^z"
+  ButtonClick('Btn15')
 }
 
 pasteClearFormat(*) {
@@ -252,24 +326,7 @@ pasteClearFormat(*) {
   A_Clipboard := A_Clipboard
   sleep 150
   Send "^v"
-}
-
-cut(*) {
-  Send "!{Esc}"
-  sleep 150
-  Send "^x"
-}
-
-all(*) {
-  Send "!{Esc}"
-  sleep 150
-  Send "^a"
-}
-
-revoke(*) {
-  Send "!{Esc}"
-  sleep 150
-  Send "^z"
+  ButtonClick('Btn16')
 }
 
 ActivatePreviousWindow(*) {
@@ -278,12 +335,14 @@ ActivatePreviousWindow(*) {
   Send "{Alt down}{Tab}"
   sleep 50
   Send "{Alt up}"
+  ButtonClick('Btn21')
 }
 
 SelectWindow(*) {
   Send "!{Esc}"
   sleep 50
   Send "{Alt down}{Tab}"
+  ButtonClick('Btn22')
 }
 GroupAdd "AltTabWindow", "ahk_class MultitaskingViewFrame"  ; 仅win10有效
 GroupAdd "AltTabWindow", "ahk_class XamlExplorerHostIslandWindow"  ; 仅win11有效
@@ -297,18 +356,21 @@ cn_en(*) {
   sleep 50
   Send "{LWin down}{Space}"
   Send "{LWin up}"
+  ButtonClick('Btn51')
 }
 
 search(*) {
   copy
   sleep 50
   Run "https://www.baidu.com/s?wd=" A_Clipboard
+  ButtonClick('Btn31')
 }
 
 searchGoogle(*) {
   copy
   sleep 50
   Run "https://www.google.com/search?q=" A_Clipboard
+  ButtonClick('Btn32')
 }
 
 ^Esc::Return ; ^Esc = # 禁用，以避免出现win界面
@@ -326,6 +388,7 @@ SwitchCtrl(btn, info) {
       btn.text := "C↑"
       SB.SetText("`t■■■■■■■■■■ 已按下 Ctrl ■■■■■■■■■■")
   }
+  ButtonClick('Btn44')
 }
 
 SwitchShift(btn, info) {
@@ -342,6 +405,7 @@ SwitchShift(btn, info) {
       btn.text := "S↑"
       SB.SetText("`t■■■■■■■■■■ 已按下 Shift ■■■■■■■■■■")
   }
+  ButtonClick('Btn45')
 }
 
 SwitchCtrlShift(btn, info) {
@@ -357,7 +421,13 @@ SwitchCtrlShift(btn, info) {
     SB.SetText("`t" version)
     Send "{Ctrl up}{Shift up}"
     Send "!{Esc}"
-    }
+  }
+  ButtonClick('Btn46')
+}
+
+btnScreenshot(*) {
+  screenshot
+  ButtonClick('Btn42')
 }
 
 screenshot(*) {
@@ -369,6 +439,7 @@ screenshot(*) {
 
 screenshot_t(*) {
   Send '+{f2}'
+  ButtonClick('Btn43')
 }
 
 baiduTranslation(*) {
@@ -379,6 +450,7 @@ baiduTranslation(*) {
 	Send "^c"
 	sleep 1000
   OnClipboardChange clipChanged_1, 0 ; 误按时，剪贴板无变化，超时自动退出监测
+  ButtonClick('Btn33')
 }
 
 clipChanged_1(*) {
@@ -399,8 +471,9 @@ baiduOCR(*) {
   screenshot
 	sleep 100
   OnClipboardChange clipChanged_3
-	sleep 5000
+	sleep 10000
   OnClipboardChange clipChanged_3, 0
+  ButtonClick('Btn34')
 }
 
 clipChanged_3(DataType) {
@@ -433,7 +506,7 @@ clipChanged_4(*) {
 	} else if InStr(A_Clipboard, "剪贴板为空") {
     translationErro
 	} else {
-    Global translationResults
+    Global translationResults := []
 		result := StrSplit(A_Clipboard, "&+&")
 		all_src := result[1]
 		all_dst := result[2]
@@ -473,16 +546,19 @@ WeiOCR(*) {
   Send '^!+f'
   sleep 500
   WinSetTransColor(MyGui.BackColor " 255", MyGui)
+  ButtonClick('Btn35')
 }
 
 googleTranslate(*) {
   copy
   sleep 50
   Run "https://translate.google.com.hk/?sl=auto&tl=zh-CN&text=" A_Clipboard "&op=translate"
+  ButtonClick('Btn36')
 }
 
 openAFolder(*) {
   Send '#e'
+  ButtonClick('Btn41')
 }
 
 winV(*) {
@@ -490,6 +566,7 @@ winV(*) {
   sleep 200
   Send "{LWin down}v"
   Send "{LWin up}"
+  ButtonClick('Btn55')
 }
 
 selectedText(*) {
@@ -528,6 +605,7 @@ selectedText(*) {
   SendEvent '{Left}'
   SendEvent '{Shift down}{Left ' i+j-2 '}'
   SendEvent '{Shift up}'
+  ButtonClick('Btn26')
 }
 copyLeft(*) {
   ; SetKeyDelay(50, 50) ; SetKeyDelay:Send 发送键击后的延时;松开按键的延时
@@ -549,6 +627,7 @@ topWindow(*) {
   sleep 50
 	active_id := WinExist('A')
 	WinSetAlwaysOnTop -1, "ahk_id " active_id
+  ButtonClick('Btn23')
 }
 
 windowMinimizing(*) {
@@ -557,6 +636,7 @@ windowMinimizing(*) {
   Send "{Alt up}"
   sleep 50 ; 兼容 使置顶窗口最小化
   WinMinimize "A"
+  ButtonClick('Btn24')
 }
 
 windowMaximizing(*) {
@@ -568,23 +648,29 @@ windowMaximizing(*) {
 	if WinGetMinMax("ahk_id " WinExist('A')) ; 获取窗口状态
 		WinRestore ; 还原窗口
 	else WinMaximize ; 最大化窗口
+  ButtonClick('Btn25')
 }
 
 win(*) {
   Send '{LWin}'
+  ButtonClick('Btn53')
 }
 
 VPN(*) {
   Send '!o'
+  ButtonClick('Btn52')
 }
 
 taskManager(*) {
   Send '^+{Esc}'
+  ButtonClick('Btn56')
 }
 
 Esc_(*) {
   Send "!{Esc}"
+  sleep 50
   Send '{Esc}'
+  ButtonClick('Btn54')
 }
 
 
@@ -595,39 +681,51 @@ Esc_(*) {
 selectedText_code(*) {
   Send "!{Esc}"
   Send '!+{Right}'
+  ButtonClick('tabBtn11')
 }
 
 deleteEntireRow_code(*) {
   Send "!{Esc}"
   Send "^+K"
+  ButtonClick('tabBtn17')
 }
 
 translate_code(*) {
   Send "!{Esc}"
   Send '^+t'
+  ButtonClick('tabBtn12')
 }
 
 moveUp_code(*) {
   Send "!{Esc}"
   Send '!{Up}'
+  ButtonClick('tabBtn13')
 }
 
 moveDown_code(*) {
   Send "!{Esc}"
   Send '!{Down}'
+  ButtonClick('tabBtn14')
 }
 
 Find_code(*) {
   Send "!{Esc}"
   Send '^f'
+  ButtonClick('tabBtn15')
 }
 
 replace_code(*) {
   Send "!{Esc}"
   Send '^h'
+  ButtonClick('tabBtn16')
 }
 
 commented_code(*) {
+  commented
+  ButtonClick('tabBtn18')
+}
+
+commented(*) {
   Send "!{Esc}"
   Send '^/'
 }
@@ -635,131 +733,195 @@ commented_code(*) {
 selectedText_py(*) {
   Send "!{Esc}"
   Send '^w'
+  ButtonClick('tabBtn21')
 }
 
 moveUp_py(*) {
   Send "!{Esc}"
   Send '!+{Up}'
+  ButtonClick('tabBtn24')
 }
 
 moveDown_py(*) {
   Send "!{Esc}"
   Send '!+{Down}'
+  ButtonClick('tabBtn25')
 }
 
 deleteEntireRow_py(*) {
   Send "!{Esc}"
   Send '^y'
+  ButtonClick('tabBtn26')
 }
 
 copyEntireRow_py(*) {
   Send "!{Esc}"
   Send '^d'
+  ButtonClick('tabBtn27')
 }
 
 translate_py(*) {
   Send "!{Esc}"
   Send '^+y'
+  ButtonClick('tabBtn22')
 }
 
 replaceTranslation_py(*) {
   Send "!{Esc}"
   Send '^+x'
+  ButtonClick('tabBtn23')
+}
+
+commented_py(*) {
+  commented
+  ButtonClick('tabBtn28')
 }
 
 imageSize_ps(*) {
   Send "!{Esc}"
   Send "^!i"
+  ButtonClick('tabBtn31')
 }
 
 canvasSize_ps(*) {
   Send "!{Esc}"
   Send '^!c'
+  ButtonClick('tabBtn32')
 }
 
 save_ps(*) {
   Send "!{Esc}"
   Send '^s'
+  ButtonClick('tabBtn33')
 }
 
 saveAs_ps(*) {
   Send "!{Esc}"
   Send '^+s'
+  ButtonClick('tabBtn34')
 }
 
 enlarge_ps(*) {
   Send "!{Esc}"
   Send '^{NumpadAdd}'
+  ButtonClick('tabBtn35')
 }
 
 narrow_ps(*) {
   Send "!{Esc}"
   Send '^{NumpadSub}'
+  ButtonClick('tabBtn36')
 }
 
 showAll_ps(*) {
   Send "!{Esc}"
   Send '^0'
+  ButtonClick('tabBtn37')
 }
 
 equalProportion_ps(*) {
   Send "!{Esc}"
   Send '^1'
+  ButtonClick('tabBtn38')
 }
 
 refresh_chrome(*) {
   Send "!{Esc}"
   Send '^r'
+  ButtonClick('tabBtn41')
 }
 
 close_chrome(*) {
-  Send "!{Esc}"
-  Send '^w'
+  close
+  ButtonClick('tabBtn42')
 }
 
-Top_chrome(*) {
+close(*) {
   Send "!{Esc}"
-  Send ''
+  Send '^w'
 }
 
 password_chrome(*) {
   Send "!{Esc}"
   Send '^+l'
+  ButtonClick('tabBtn43')
 }
 
 new_chrome(*) {
   Send "!{Esc}"
   Send '^t'
+  ButtonClick('tabBtn44')
+}
+
+reopen_chrome(*) {
+  Send "!{Esc}"
+  Send '^+t'
+  ButtonClick('tabBtn45')
 }
 
 newTraceless_chrome(*) {
   Send "!{Esc}"
   Send '^+n'
+  ButtonClick('tabBtn46')
 }
 
 rightTab_chrome(*) {
   Send "!{Esc}"
   Send '^{Tab}'
+  ButtonClick('tabBtn47')
 }
 
 leftTab_chrome(*) {
   Send "!{Esc}"
   Send '^+{Tab}'
+  ButtonClick('tabBtn48')
+}
+
+close_explorer(*) {
+  close
+  ButtonClick('tabBtn51')
 }
 
 newFolder_explorer(*) {
   Send "!{Esc}"
   Send '^+n'
+  ButtonClick('tabBtn52')
 }
 
 renameFile_explorer(*) {
   Send "!{Esc}"
   Send '{f2}'
+  ButtonClick('tabBtn53')
 }
 
 psOpenFile_explorer(*) {
   Send "!{Esc}"
   Send '{AppsKey}p'
+  ButtonClick('tabBtn54')
+}
+
+list_explorer(*) {
+  Send "!{Esc}"
+  Send '^!5'
+  ButtonClick('tabBtn55')
+}
+
+information_explorer(*) {
+  Send "!{Esc}"
+  Send '^!6'
+  ButtonClick('tabBtn56')
+}
+
+largeIcons_explorer(*) {
+  Send "!{Esc}"
+  Send '^!2'
+  ButtonClick('tabBtn57')
+}
+
+extraLargeIcons_explorer(*) {
+  Send "!{Esc}"
+  Send '^!1'
+  ButtonClick('tabBtn58')
 }
 
 
@@ -785,10 +947,12 @@ hotkeySwitch(btn, info) {
     btn.Opt("-Background")
     btn.Text := '热键on'
     }
+  ButtonClick('热键开关')
 }
 
+
 Hide(*) {
-  Global HideWindow, GuiWidth, GuiHeight, XSize
+  static HideWindow := false
   if HideWindow {
     MyGui.GetClientPos(&X, &Y, &W, &H)
     HideWindow := false
@@ -826,11 +990,12 @@ tabLock_(btn, info) {
     btn.Opt("-Background")
     btn.Text := 'Tab锁'
   }
+  ButtonClick('Tab锁')
 }
 
 
 
-; 按键功能 （全局生效）---------------------------------------------------------------------------------------------
+; 按键功能（全局生效）---------------------------------------------------------------------------------------------
 
 LCtrl::LWin ; 左ctrl → 左win
 LWin::LAlt ; 左win → 左alt
@@ -843,9 +1008,72 @@ Ins::return ; Ins 按键失效
 
 ^F1::Run "notepad" ; Ctrl F1：打开记事本
 
+; 输入法中英文键盘切换
 NumLock::{
-  Send "{LWin down}{Space}"
-  Send "{LWin up}"
+  Send "{Ctrl down}{Space}"
+  Send "{Ctrl up}"
+}
+
+
+
+; 输入法切换（全局生效） -------------------------------------------------------------------------------------------
+firstPress := false
+$/::{
+  ; 单击时firstPress为真，延时1000
+  ; 时限内再次按下（After函数未触发），更新延时为1，立即执行函数，firstPress更改为假
+
+  Global firstPress
+  firstPress := !firstPress
+  SetTimer(After, firstPress ? -300 : -1)
+
+  ; KeyWait('/') ; 等待松开按键，避免长按触发。（与按键本身特性有关，所以仅部分按键生效）
+}
+
+$a::
+$b::
+$c::
+$d::
+$e::
+$f::
+$g::
+$h::
+$i::
+$j::
+$k::
+$l::
+$m::
+$n::
+$o::
+$p::
+$q::
+$r::
+$s::
+$t::
+$u::
+$v::
+$w::
+$x::
+$y::
+$z::key(ThisHotkey)
+
+key(ThisHotkey) {
+  if A_PriorHotkey = '$/' and firstPress {
+      SetTimer(After, -1)
+      sleep 100
+  }
+  Key := SubStr(ThisHotkey,2)
+  send Key
+}
+
+After() {
+  Global firstPress
+  if firstPress {
+      Send "{LWin down}{Space}"
+      Send "{LWin up}"
+  } else {
+      send '/'
+  }
+  firstPress := false
 }
 
 
@@ -854,8 +1082,7 @@ NumLock::{
 
 ; 创建只有在指定程序处于活动状态时才生效的热键，使用ahk_exe指定进程名 
 #HotIf WinActive("ahk_exe Photoshop.exe")
-.::Send "^c"
-/::Send "^v"
+.::Send "^v"
 ,::{
   Send "{F1}"
   sleep 50
@@ -874,19 +1101,22 @@ RAlt::^+!s  ; 右alt → 保存web图片
 GroupAdd 'copy123', "ahk_exe Photoshop.exe"
 GroupAdd 'copy123', "ahk_exe notepad.exe"
 GroupAdd 'copy123', "ahk_exe Code.exe"
+GroupAdd 'copy123', "ahk_exe pycharm64.exe"
 GroupAdd 'copy123', "ahk_exe explorer.exe"
 GroupAdd 'copy123', "ahk_exe chrome.exe"
 GroupAdd 'copy123', "ahk_exe DingTalk.exe"
-GroupAdd 'copy123', "ahk_exe pycharm64.exe"
+GroupAdd 'copy123', "ahk_exe WeChat.exe"
 GroupAdd 'copy123', "ahk_exe AutoHotkey64.exe"
+GroupAdd 'copy123', "ahk_exe wps.exe"
 #HotIf WinActive("ahk_group copy123")
 1::Send "^c"
 2::Send "^v"
 3::Send "^x"
 
 
+#HotIf WinActive("ahk_exe explorer.exe")
+F1::return
+
+
 ; #HotIf 指令会影响脚本中在它后面的所有热键和热字串, 直到下一个 #HotIf 指令
 #HotIf
-
-
-
