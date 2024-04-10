@@ -4,7 +4,7 @@ ProcessSetPriority 'B'
 MyGui := Gui('+AlwaysOnTop +ToolWindow', 'TopAutoKeyboard')
 
 tabList := ['Code','PY','PS','浏览器','文件夹','其他'] ; 列表元素需要与 procMap 的value对应
-version := 'version 1.1.1'
+version := 'version 1.1.2'
 XSize := 280 ; 隐藏后，窗口减小的尺寸。注意不能大于GuiWidth
 GuiWidth := 340
 GuiHeight := 460
@@ -84,94 +84,144 @@ tabW := 321
 ; Tab := MyGui.AddTab3('xm Buttons', tabList) ; Buttons 在控件的顶部创建一系列按钮而不是选项卡
 Tab := MyGui.AddTab3('xm w' tabW ' h' tabH, tabList)
 Tab.OnEvent("Change", TabChange)
-tabBtn11 := MyGui.AddButton('     x+0 w50 h30 Default', '选词')
-tabBtn12 := MyGui.AddButton('yp   x+3 wp  hp  Default', '翻译')
-tabBtn13 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↑')
-tabBtn14 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↓')
-tabBtn15 := MyGui.AddButton('yp   x+3 wp  hp  Default', '查找')
-tabBtn16 := MyGui.AddButton('yp   x+3 wp  hp  Default', '替换')
-tabBtn17 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '删行')
-tabBtn18 := MyGui.AddButton('yp   x+3 wp  hp  Default', '注释')
-tabBtn11.OnEvent("Click", selectedText_code) ; 选中光标附近的一个单词，可执行多次，更改选区
-tabBtn12.OnEvent("Click", translate_code) ; 翻译选中文本
-tabBtn13.OnEvent("Click", moveUp_code) ; 整行向上移动
-tabBtn14.OnEvent("Click", moveDown_code) ; 整行向下移动
-tabBtn15.OnEvent("Click", Find_code) ; 查找
-tabBtn16.OnEvent("Click", replace_code) ; 替换
-tabBtn17.OnEvent("Click", deleteEntireRow_code) ; 整行删除
-tabBtn18.OnEvent("Click", commented_code) ; 注释代码
+tabBtn1_1 := MyGui.AddButton('     x+0 w50 h30 Default', '选词')
+tabBtn1_2 := MyGui.AddButton('yp   x+3 wp  hp  Default', '翻译')
+tabBtn1_3 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↑')
+tabBtn1_4 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↓')
+tabBtn1_5 := MyGui.AddButton('yp   x+3 wp  hp  Default', '查找')
+tabBtn1_6 := MyGui.AddButton('yp   x+3 wp  hp  Default', '替换')
+tabBtn1_7 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '删行')
+tabBtn1_8 := MyGui.AddButton('yp   x+3 wp  hp  Default', '注释')
+tabBtn1_1.OnEvent("Click", selectedText_code) ; 选中光标附近的一个单词，可执行多次，更改选区
+tabBtn1_2.OnEvent("Click", translate_code) ; 翻译选中文本
+tabBtn1_3.OnEvent("Click", moveUp_code) ; 整行向上移动
+tabBtn1_4.OnEvent("Click", moveDown_code) ; 整行向下移动
+tabBtn1_5.OnEvent("Click", Find_code) ; 查找
+tabBtn1_6.OnEvent("Click", replace_code) ; 替换
+tabBtn1_7.OnEvent("Click", deleteEntireRow_code) ; 整行删除
+tabBtn1_8.OnEvent("Click", commented_code) ; 注释代码
 
 Tab.UseTab(2)
-tabBtn21 := MyGui.AddButton('     x+0 w50 h30 Default', '选词')
-tabBtn22 := MyGui.AddButton('yp   x+3 wp  hp  Default', '翻译')
-tabBtn23 := MyGui.AddButton('yp   x+3 wp  hp  Default', '替换译')
-tabBtn24 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↑')
-tabBtn25 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↓')
-tabBtn26 := MyGui.AddButton('yp   x+3 wp  hp  Default', '删行')
-tabBtn27 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '复制行')
-tabBtn28 := MyGui.AddButton('yp   x+3 wp  hp  Default', '注释')
-tabBtn21.OnEvent("Click", selectedText_py) ; 选中光标附近的一个单词，可执行多次，更改选区
-tabBtn22.OnEvent("Click", translate_py) ; 显示选中文本的翻译
-tabBtn23.OnEvent("Click", replaceTranslation_py) ; 替换翻译选中文本
-tabBtn24.OnEvent("Click", moveUp_py) ; 整行向上移动
-tabBtn25.OnEvent("Click", moveDown_py) ; 整行向下移动
-tabBtn26.OnEvent("Click", deleteEntireRow_py) ; 整行删除
-tabBtn27.OnEvent("Click", copyEntireRow_py) ; 整行复制
-tabBtn28.OnEvent("Click", commented_py) ; 注释代码
+tabBtn2_1 := MyGui.AddButton('     x+0 w50 h30 Default', '选词')
+tabBtn2_2 := MyGui.AddButton('yp   x+3 wp  hp  Default', '翻译')
+tabBtn2_3 := MyGui.AddButton('yp   x+3 wp  hp  Default', '替换译')
+tabBtn2_4 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↑')
+tabBtn2_5 := MyGui.AddButton('yp   x+3 wp  hp  Default', '行↓')
+tabBtn2_6 := MyGui.AddButton('yp   x+3 wp  hp  Default', '删行')
+tabBtn2_7 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '复制行')
+tabBtn2_8 := MyGui.AddButton('yp   x+3 wp  hp  Default', '注释')
+tabBtn2_1.OnEvent("Click", selectedText_py) ; 选中光标附近的一个单词，可执行多次，更改选区
+tabBtn2_2.OnEvent("Click", translate_py) ; 显示选中文本的翻译
+tabBtn2_3.OnEvent("Click", replaceTranslation_py) ; 替换翻译选中文本
+tabBtn2_4.OnEvent("Click", moveUp_py) ; 整行向上移动
+tabBtn2_5.OnEvent("Click", moveDown_py) ; 整行向下移动
+tabBtn2_6.OnEvent("Click", deleteEntireRow_py) ; 整行删除
+tabBtn2_7.OnEvent("Click", copyEntireRow_py) ; 整行复制
+tabBtn2_8.OnEvent("Click", commented_py) ; 注释代码
 
 Tab.UseTab(3)
-tabBtn31 := MyGui.AddButton('     x+0 w50 h30 Default', '图像')
-tabBtn32 := MyGui.AddButton('yp   x+3 wp  hp  Default', '画布')
-tabBtn33 := MyGui.AddButton('yp   x+3 wp  hp  Default', '保存')
-tabBtn34 := MyGui.AddButton('yp   x+3 wp  hp  Default', '另存')
-tabBtn35 := MyGui.AddButton('yp   x+3 wp  hp  Default', '放大')
-tabBtn36 := MyGui.AddButton('yp   x+3 wp  hp  Default', '缩小')
-tabBtn37 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '全显')
-tabBtn38 := MyGui.AddButton('yp   x+3 wp  hp  Default', '等比')
-tabBtn31.OnEvent("Click", imageSize_ps) ; 图像大小
-tabBtn32.OnEvent("Click", canvasSize_ps) ; 画布大小
-tabBtn33.OnEvent("Click", save_ps) ; 保存文件
-tabBtn34.OnEvent("Click", saveAs_ps) ; 另存为
-tabBtn35.OnEvent("Click", enlarge_ps) ; 放大画布
-tabBtn36.OnEvent("Click", narrow_ps) ; 缩小画布
-tabBtn37.OnEvent("Click", showAll_ps) ; 缩放至屏幕大小
-tabBtn38.OnEvent("Click", equalProportion_ps) ; 1:1 显示
+tabBtn3_1 := MyGui.AddButton('     x+0 w50 h30 Default', '图像')
+tabBtn3_2 := MyGui.AddButton('yp   x+3 wp  hp  Default', '画布')
+tabBtn3_3 := MyGui.AddButton('yp   x+3 wp  hp  Default', '保存')
+tabBtn3_4 := MyGui.AddButton('yp   x+3 wp  hp  Default', '另存')
+tabBtn3_5 := MyGui.AddButton('yp   x+3 wp  hp  Default', '放大')
+tabBtn3_6 := MyGui.AddButton('yp   x+3 wp  hp  Default', '缩小')
+tabBtn3_7 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '全显')
+tabBtn3_8 := MyGui.AddButton('yp   x+3 wp  hp  Default', '等比')
+tabBtn3_9 := MyGui.AddButton('yp   x+3 wp  hp  Default', '取选')
+tabBtn3_10 := MyGui.AddButton('yp   x+3 wp  hp  Default', '变换')
+tabBtn3_11 := MyGui.AddButton('yp   x+3 wp  hp  Default', '命名')
+tabBtn3_12 := MyGui.AddButton('yp   x+3 wp  hp  Default', '标尺')
+tabBtn3_13 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '复名')
+tabBtn3_14 := MyGui.AddButton('yp   x+3 wp  hp  Default', '粘名')
+tabBtn3_15 := MyGui.AddButton('yp   x+3 wp  hp  Default', '剪蒙')
+tabBtn3_16 := MyGui.AddButton('yp   x+3 wp  hp  Default', '选区蒙')
+tabBtn3_17 := MyGui.AddButton('yp   x+3 wp  hp  Default', '图层蒙')
+tabBtn3_18 := MyGui.AddButton('yp   x+3 wp  hp  Default', '参考线')
+tabBtn3_19 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '复制到')
+tabBtn3_20 := MyGui.AddButton('yp   x+3 wp  hp  Default', '关闭')
+tabBtn3_21 := MyGui.AddButton('yp   x+3 wp  hp  Default', '移动')
+tabBtn3_22 := MyGui.AddButton('yp   x+3 wp  hp  Default', '自选')
+tabBtn3_23 := MyGui.AddButton('yp   x+3 wp  hp  Default', '选区')
+tabBtn3_24 := MyGui.AddButton('yp   x+3 wp  hp  Default', 'CJ')
+tabBtn3_25 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '↑')
+tabBtn3_27 := MyGui.AddButton('yp   x+3 wp  hp  Default', '↓')
+tabBtn3_26 := MyGui.AddButton('yp   x+3 wp  hp  Default', 'V')
+tabBtn3_29 := MyGui.AddButton('yp   x+3 wp  hp  Default', 'H')
+tabBtn3_28 := MyGui.AddButton('yp   x+3 wp  hp  Default', '←')
+tabBtn3_30 := MyGui.AddButton('yp   x+3 wp  hp  Default', '→')
+tabBtn3_1.OnEvent("Click", imageSize_ps) ; 图像大小
+tabBtn3_2.OnEvent("Click", canvasSize_ps) ; 画布大小
+tabBtn3_3.OnEvent("Click", save_ps) ; 保存文件
+tabBtn3_4.OnEvent("Click", saveAs_ps) ; 另存为
+tabBtn3_5.OnEvent("Click", enlarge_ps) ; 放大画布
+tabBtn3_6.OnEvent("Click", narrow_ps) ; 缩小画布
+tabBtn3_7.OnEvent("Click", showAll_ps) ; 缩放至屏幕大小
+tabBtn3_8.OnEvent("Click", equalProportion_ps) ; 1:1 显示
+tabBtn3_9.OnEvent("Click", deselect_ps) ; 取消选择
+tabBtn3_10.OnEvent("Click", CtrlT_ps) ; 变换
+tabBtn3_11.OnEvent("Click", rename_ps) ; 图层重命名
+tabBtn3_12.OnEvent("Click", ruler_ps) ; 标尺
+tabBtn3_13.OnEvent("Click", copyName_ps) ; 复制图层名
+tabBtn3_14.OnEvent("Click", pasteName_ps) ; 粘贴图层名
+tabBtn3_15.OnEvent("Click", clippingMask_ps) ; 剪贴蒙版
+tabBtn3_16.OnEvent("Click", constituencyMask_ps) ; 从选区新建图层蒙版
+tabBtn3_17.OnEvent("Click", layerMask_ps) ; 新建图层蒙版
+tabBtn3_18.OnEvent("Click", referenceLine_ps) ; 参考线
+tabBtn3_19.OnEvent("Click", copy_ps) ; 复制图层或组到指定文档
+tabBtn3_20.OnEvent("Click", close_ps) ; 关闭文档
+tabBtn3_21.OnEvent("Click", v_ps) ; 移动
+tabBtn3_22.OnEvent("Click", Vauto_ps) ; 自动选择一次
+tabBtn3_23.OnEvent("Click", m_ps) ; 选区
+tabBtn3_24.OnEvent("Click", CJ_ps) ; 通过拷贝新建图层
+tabBtn3_25.OnEvent("Click", topAlignment_ps) ; 顶对齐
+tabBtn3_27.OnEvent("Click", bottom_ps) ; 底对齐
+tabBtn3_26.OnEvent("Click", alignVerticalCenter_ps) ; 垂直居中对齐
+tabBtn3_29.OnEvent("Click", alignHorizontalCenter_ps) ; 水平居中对齐
+tabBtn3_28.OnEvent("Click", leftAligned_ps) ; 左对齐
+tabBtn3_30.OnEvent("Click", rightAligned_ps) ; 右对齐
 
 Tab.UseTab(4)
-tabBtn41 := MyGui.AddButton('     x+0 w50 h30 Default', '刷新')
-tabBtn42 := MyGui.AddButton('yp   x+3 wp  hp  Default', '关闭')
-tabBtn43 := MyGui.AddButton('yp   x+3 wp  hp  Default', '密码')
-tabBtn44 := MyGui.AddButton('yp   x+3 wp  hp  Default', '新')
-tabBtn45 := MyGui.AddButton('yp   x+3 wp  hp  Default', '重开')
-tabBtn46 := MyGui.AddButton('yp   x+3 wp  hp  Default', '无痕')
-tabBtn47 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '右')
-tabBtn48 := MyGui.AddButton('yp   x+3 wp  hp  Default', '左')
-tabBtn41.OnEvent("Click", refresh_chrome) ; 刷新
-tabBtn42.OnEvent("Click", close_chrome) ; 关闭选项卡
-tabBtn43.OnEvent("Click", password_chrome) ; 打开密码箱
-tabBtn44.OnEvent("Click", new_chrome) ; 新建选项卡
-tabBtn45.OnEvent("Click", reopen_chrome) ; 重新打开关闭的选项卡
-tabBtn46.OnEvent("Click", newTraceless_chrome) ; 新建无痕窗口
-tabBtn47.OnEvent("Click", rightTab_chrome) ; 切换到右侧选项卡
-tabBtn48.OnEvent("Click", leftTab_chrome) ; 切换到左侧选项卡
+tabBtn4_1 := MyGui.AddButton('     x+0 w50 h30 Default', '刷新')
+tabBtn4_2 := MyGui.AddButton('yp   x+3 wp  hp  Default', '关闭')
+tabBtn4_3 := MyGui.AddButton('yp   x+3 wp  hp  Default', '密码')
+tabBtn4_4 := MyGui.AddButton('yp   x+3 wp  hp  Default', '新')
+tabBtn4_5 := MyGui.AddButton('yp   x+3 wp  hp  Default', '重开')
+tabBtn4_6 := MyGui.AddButton('yp   x+3 wp  hp  Default', '无痕')
+tabBtn4_7 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '右')
+tabBtn4_8 := MyGui.AddButton('yp   x+3 wp  hp  Default', '左')
+tabBtn4_1.OnEvent("Click", refresh_chrome) ; 刷新
+tabBtn4_2.OnEvent("Click", close_chrome) ; 关闭选项卡
+tabBtn4_3.OnEvent("Click", password_chrome) ; 打开密码箱
+tabBtn4_4.OnEvent("Click", new_chrome) ; 新建选项卡
+tabBtn4_5.OnEvent("Click", reopen_chrome) ; 重新打开关闭的选项卡
+tabBtn4_6.OnEvent("Click", newTraceless_chrome) ; 新建无痕窗口
+tabBtn4_7.OnEvent("Click", rightTab_chrome) ; 切换到右侧选项卡
+tabBtn4_8.OnEvent("Click", leftTab_chrome) ; 切换到左侧选项卡
 
 Tab.UseTab(5)
-tabBtn51 := MyGui.AddButton('     x+0 w50 h30 Default', '关闭')
-tabBtn52 := MyGui.AddButton('yp   x+3 wp  hp  Default', '新建')
-tabBtn53 := MyGui.AddButton('yp   x+3 wp  hp  Default', '命名')
-tabBtn54 := MyGui.AddButton('yp   x+3 wp  hp  Default', 'PS')
-tabBtn55 := MyGui.AddButton('yp   x+3 wp  hp  Default', '列')
-tabBtn56 := MyGui.AddButton('yp   x+3 wp  hp  Default', '详情')
-tabBtn57 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '大')
-tabBtn58 := MyGui.AddButton('yp   x+3 wp  hp  Default', '超大')
-tabBtn51.OnEvent("Click", close_explorer) ; 关闭窗口
-tabBtn52.OnEvent("Click", newFolder_explorer) ; 新建文件夹
-tabBtn53.OnEvent("Click", renameFile_explorer) ; 重命名文件
-tabBtn54.OnEvent("Click", psOpenFile_explorer) ; PS 打开文件
-tabBtn55.OnEvent("Click", list_explorer) ; 文件查看方式：列表
-tabBtn56.OnEvent("Click", information_explorer) ; 文件查看方式：详细信息
-tabBtn57.OnEvent("Click", largeIcons_explorer) ; 文件查看方式：大图标
-tabBtn58.OnEvent("Click", extraLargeIcons_explorer) ; 文件查看方式：越大图标
+tabBtn5_1 := MyGui.AddButton('     x+0 w50 h30 Default', '关闭')
+tabBtn5_2 := MyGui.AddButton('yp   x+3 wp  hp  Default', '新夹')
+tabBtn5_3 := MyGui.AddButton('yp   x+3 wp  hp  Default', '命名')
+tabBtn5_4 := MyGui.AddButton('yp   x+3 wp  hp  Default', 'PS')
+tabBtn5_5 := MyGui.AddButton('yp   x+3 wp  hp  Default', '列')
+tabBtn5_6 := MyGui.AddButton('yp   x+3 wp  hp  Default', '详情')
+tabBtn5_7 := MyGui.AddButton('xm+2 y+3 wp  hp  Default', '大')
+tabBtn5_8 := MyGui.AddButton('yp   x+3 wp  hp  Default', '超大')
+tabBtn5_9 := MyGui.AddButton('yp   x+3 wp  hp  Default', '保存')
+tabBtn5_10 := MyGui.AddButton('yp   x+3 wp  hp  Default', '新txt')
+tabBtn5_11 := MyGui.AddButton('yp   x+3 wp  hp  Default', '上级')
+tabBtn5_1.OnEvent("Click", close_explorer) ; 关闭窗口
+tabBtn5_2.OnEvent("Click", newFolder_explorer) ; 新建文件夹
+tabBtn5_3.OnEvent("Click", renameFile_explorer) ; 重命名文件
+tabBtn5_4.OnEvent("Click", psOpenFile_explorer) ; PS 打开文件
+tabBtn5_5.OnEvent("Click", list_explorer) ; 文件查看方式：列表
+tabBtn5_6.OnEvent("Click", information_explorer) ; 文件查看方式：详细信息
+tabBtn5_7.OnEvent("Click", largeIcons_explorer) ; 文件查看方式：大图标
+tabBtn5_8.OnEvent("Click", extraLargeIcons_explorer) ; 文件查看方式：越大图标
+tabBtn5_9.OnEvent("Click", save_explorer) ; 保存文件
+tabBtn5_10.OnEvent("Click", newTxt_explorer) ; 当前目录新建TXT
+tabBtn5_11.OnEvent("Click", returnToThePreviousLevelDirectory_explorer) ; 返回上一级目录
 
 Tab.UseTab(6)
 MyEdit_y := 213 ; 控件Y轴位置，上方每一行btn控件加间隙的高度为37
@@ -190,11 +240,14 @@ BtnA1 := MyGui.AddButton('xm     w50 h30 Default', '热键on')
 BtnA2 := MyGui.AddButton('yp x+3 wp  hp  Default', 'Tab锁')
 BtnA3 := MyGui.AddButton('yp x+3 wp  hp  Default', '重启')
 BtnA4 := MyGui.AddButton('yp x+3 wp  hp  Default', '退出')
-; BtnA5 := MyGui.AddButton('yp x+3 wp  hp  Default', '')
+BtnA5 := MyGui.AddButton('yp x+3 wp  hp  Default', '记事本')
+BtnA6 := MyGui.AddButton('yp x+3 wp  hp  Default', '浏览器')
 BtnA1.OnEvent("Click", hotkeySwitch) ; 禁用/启用所有的热键和热字串
 BtnA2.OnEvent("Click", tabLock_) ; 锁定/解锁Tab选项卡
 BtnA3.OnEvent("Click", Reload_) ; 重启脚本
 BtnA4.OnEvent("Click", Close_) ; 退出脚本
+BtnA5.OnEvent("Click", openNotepad) ; 打开记事本
+BtnA6.OnEvent("Click", openBrowser) ; 打开浏览器
 
 
 
@@ -219,7 +272,7 @@ SetTimer(update, 250), show()
 tabLock := false
 update() {
   Global proc := '' ; 进程名
-  static procMap := Map('Code','Code','pycharm64','PY','Photoshop','PS','chrome','浏览器','WeChat','文件夹','explorer','文件夹')
+  static procMap := Map('Code','Code','pycharm64','PY','Photoshop','PS','Illustrator','PS','chrome','浏览器','WeChat','文件夹','explorer','文件夹','2345PicViewer','文件夹','wps','文件夹','notepad','文件夹')
   if !tabLock {
     Try If WinGetClass('A') != 'AutoHotkeyGUI' {
       ; btn002.Text := WinGetClass("A")
@@ -276,6 +329,26 @@ ButtonClickCountToString(*) {
     for key, value in ButtonClickCount
         result := result key ": " value "`n"
     return result
+}
+
+
+
+; 自定义托盘菜单 ---------------------------------------------------------------------------------------
+
+Tray := A_TrayMenu
+Tray.Delete("&Open")
+Tray.Delete("&Help")
+Tray.Delete("&Window Spy")
+Tray.Delete("&Edit Script")
+Tray.Delete("3&")
+Tray.Rename("&Reload Script" , "重载脚本")
+Tray.Rename("&Suspend Hotkeys" , "挂起热键")
+Tray.Rename("&Pause Script" , "暂停脚本")
+Tray.Insert("1&", "显示主程序", displayMainProgram)
+Tray.Insert("6&",) ; 添加分隔线
+
+displayMainProgram(*) {
+    WinActivate "TopAutoKeyboard"
 }
 
 
@@ -673,6 +746,18 @@ Esc_(*) {
   ButtonClick('Btn54')
 }
 
+openNotepad(*) {
+  Run "notepad"
+  ButtonClick('BtnA5')
+}
+
+openBrowser(*) {
+  if WinExist("ahk_exe chrome.exe")
+    WinActivate
+  else
+    Run "C:\Program Files\Google\Chrome\Application\chrome.exe"
+  ButtonClick('BtnA6')
+}
 
 
 
@@ -681,48 +766,48 @@ Esc_(*) {
 selectedText_code(*) {
   Send "!{Esc}"
   Send '!+{Right}'
-  ButtonClick('tabBtn11')
+  ButtonClick('tabBtn1_1')
 }
 
 deleteEntireRow_code(*) {
   Send "!{Esc}"
   Send "^+K"
-  ButtonClick('tabBtn17')
+  ButtonClick('tabBtn1_7')
 }
 
 translate_code(*) {
   Send "!{Esc}"
   Send '^+t'
-  ButtonClick('tabBtn12')
+  ButtonClick('tabBtn1_2')
 }
 
 moveUp_code(*) {
   Send "!{Esc}"
   Send '!{Up}'
-  ButtonClick('tabBtn13')
+  ButtonClick('tabBtn1_3')
 }
 
 moveDown_code(*) {
   Send "!{Esc}"
   Send '!{Down}'
-  ButtonClick('tabBtn14')
+  ButtonClick('tabBtn1_4')
 }
 
 Find_code(*) {
   Send "!{Esc}"
   Send '^f'
-  ButtonClick('tabBtn15')
+  ButtonClick('tabBtn1_5')
 }
 
 replace_code(*) {
   Send "!{Esc}"
   Send '^h'
-  ButtonClick('tabBtn16')
+  ButtonClick('tabBtn1_6')
 }
 
 commented_code(*) {
   commented
-  ButtonClick('tabBtn18')
+  ButtonClick('tabBtn1_8')
 }
 
 commented(*) {
@@ -733,107 +818,249 @@ commented(*) {
 selectedText_py(*) {
   Send "!{Esc}"
   Send '^w'
-  ButtonClick('tabBtn21')
+  ButtonClick('tabBtn2_1')
 }
 
 moveUp_py(*) {
   Send "!{Esc}"
   Send '!+{Up}'
-  ButtonClick('tabBtn24')
+  ButtonClick('tabBtn2_4')
 }
 
 moveDown_py(*) {
   Send "!{Esc}"
   Send '!+{Down}'
-  ButtonClick('tabBtn25')
+  ButtonClick('tabBtn2_5')
 }
 
 deleteEntireRow_py(*) {
   Send "!{Esc}"
   Send '^y'
-  ButtonClick('tabBtn26')
+  ButtonClick('tabBtn2_6')
 }
 
 copyEntireRow_py(*) {
   Send "!{Esc}"
   Send '^d'
-  ButtonClick('tabBtn27')
+  ButtonClick('tabBtn2_7')
 }
 
 translate_py(*) {
   Send "!{Esc}"
   Send '^+y'
-  ButtonClick('tabBtn22')
+  ButtonClick('tabBtn2_2')
 }
 
 replaceTranslation_py(*) {
   Send "!{Esc}"
   Send '^+x'
-  ButtonClick('tabBtn23')
+  ButtonClick('tabBtn2_3')
 }
 
 commented_py(*) {
   commented
-  ButtonClick('tabBtn28')
+  ButtonClick('tabBtn2_8')
 }
 
 imageSize_ps(*) {
   Send "!{Esc}"
   Send "^!i"
-  ButtonClick('tabBtn31')
+  ButtonClick('tabBtn3_1')
 }
 
 canvasSize_ps(*) {
   Send "!{Esc}"
   Send '^!c'
-  ButtonClick('tabBtn32')
+  ButtonClick('tabBtn3_2')
 }
 
 save_ps(*) {
   Send "!{Esc}"
   Send '^s'
-  ButtonClick('tabBtn33')
+  ButtonClick('tabBtn3_3')
 }
 
 saveAs_ps(*) {
   Send "!{Esc}"
   Send '^+s'
-  ButtonClick('tabBtn34')
+  ButtonClick('tabBtn3_4')
 }
 
 enlarge_ps(*) {
   Send "!{Esc}"
   Send '^{NumpadAdd}'
-  ButtonClick('tabBtn35')
+  ButtonClick('tabBtn3_5')
 }
 
 narrow_ps(*) {
   Send "!{Esc}"
   Send '^{NumpadSub}'
-  ButtonClick('tabBtn36')
+  ButtonClick('tabBtn3_6')
 }
 
 showAll_ps(*) {
   Send "!{Esc}"
   Send '^0'
-  ButtonClick('tabBtn37')
+  ButtonClick('tabBtn3_7')
 }
 
 equalProportion_ps(*) {
   Send "!{Esc}"
   Send '^1'
-  ButtonClick('tabBtn38')
+  ButtonClick('tabBtn3_8')
+}
+
+deselect_ps(*) {
+  Send "!{Esc}"
+  Send '^d'
+  ButtonClick('tabBtn3_9')
+}
+
+CtrlT_ps(*) {
+  Send "!{Esc}"
+  Send '^t'
+  ButtonClick('tabBtn3_10')
+}
+
+rename_ps(*) {
+  Send "!{Esc}"
+  Send '{F1}'
+  ButtonClick('tabBtn3_11')
+}
+
+ruler_ps(*) {
+  Send "!{Esc}"
+  Send "^r"
+  ButtonClick('tabBtn3_12')
+}
+
+copyName_ps(*) {
+  Send "!{Esc}"
+  sleep 50
+  Send "{F1}"
+  sleep 50
+  Send "^c"
+  sleep 50
+  Send "{Enter}"
+  ButtonClick('tabBtn3_13')
+}
+
+pasteName_ps(*) {
+  Send "!{Esc}"
+  sleep 50
+  Send "{F1}"
+  sleep 50
+  Send "^v"
+  sleep 50
+  Send "{Enter}"
+  ButtonClick('tabBtn3_14')
+}
+
+clippingMask_ps(*) {
+  Send "!{Esc}"
+  Send '^!g'
+  ; Send "{Ctrl down}{Alt down}g"
+  ; Send "{Ctrl up}{Alt up}"
+  ButtonClick('tabBtn3_15')
+}
+
+constituencyMask_ps(*) {
+  Send "!{Esc}"
+  Send "^'"
+  ButtonClick('tabBtn3_16')
+}
+
+layerMask_ps(*) {
+  Send "!{Esc}"
+  Send "^+/"
+  ButtonClick('tabBtn3_17')
+}
+
+referenceLine_ps(*) {
+  Send "!{Esc}"
+  Send "^;"
+  ButtonClick('tabBtn3_18')
+}
+
+copy_ps(*) {
+  Send "!{Esc}"
+  Send "{F8}"
+  ButtonClick('tabBtn3_19')
+}
+
+close_ps(*) {
+  close
+  ButtonClick('tabBtn3_20')
+}
+
+v_ps(*) {
+  Send "!{Esc}"
+  Send "v"
+  ButtonClick('tabBtn3_21')
+}
+
+Vauto_ps(*) {
+  Run A_WorkingDir "\Vauto_ps.ahk"
+  ButtonClick('tabBtn3_22')
+}
+
+m_ps(*) {
+  Send "!{Esc}"
+  Send "m"
+  ButtonClick('tabBtn3_23')
+}
+
+CJ_ps(*) {
+  Send "!{Esc}"
+  Send "^j"
+  ButtonClick('tabBtn3_24')
+}
+
+topAlignment_ps(*) {
+  Send "!{Esc}"
+  Send "{F11}"
+  ButtonClick('tabBtn3_25')
+}
+
+alignVerticalCenter_ps(*) {
+  Send "!{Esc}"
+  Send "{F10}"
+  ButtonClick('tabBtn3_26')
+}
+
+bottom_ps(*) {
+  Send "!{Esc}"
+  Send "{F12}"
+  ButtonClick('tabBtn3_27')
+}
+
+leftAligned_ps(*) {
+  Send "!{Esc}"
+  Send "^{F11}"
+  ButtonClick('tabBtn3_28')
+}
+
+alignHorizontalCenter_ps(*) {
+  Send "!{Esc}"
+  Send "{F9}"
+  ButtonClick('tabBtn3_29')
+}
+
+rightAligned_ps(*) {
+  Send "!{Esc}"
+  Send "^{F12}"
+  ButtonClick('tabBtn3_30')
 }
 
 refresh_chrome(*) {
   Send "!{Esc}"
   Send '^r'
-  ButtonClick('tabBtn41')
+  ButtonClick('tabBtn4_1')
 }
 
 close_chrome(*) {
   close
-  ButtonClick('tabBtn42')
+  ButtonClick('tabBtn4_2')
 }
 
 close(*) {
@@ -844,84 +1071,123 @@ close(*) {
 password_chrome(*) {
   Send "!{Esc}"
   Send '^+l'
-  ButtonClick('tabBtn43')
+  ButtonClick('tabBtn4_3')
 }
 
 new_chrome(*) {
   Send "!{Esc}"
   Send '^t'
-  ButtonClick('tabBtn44')
+  ButtonClick('tabBtn4_4')
 }
 
 reopen_chrome(*) {
   Send "!{Esc}"
   Send '^+t'
-  ButtonClick('tabBtn45')
+  ButtonClick('tabBtn4_5')
 }
 
 newTraceless_chrome(*) {
   Send "!{Esc}"
   Send '^+n'
-  ButtonClick('tabBtn46')
+  ButtonClick('tabBtn4_6')
 }
 
 rightTab_chrome(*) {
   Send "!{Esc}"
   Send '^{Tab}'
-  ButtonClick('tabBtn47')
+  ButtonClick('tabBtn4_7')
 }
 
 leftTab_chrome(*) {
   Send "!{Esc}"
   Send '^+{Tab}'
-  ButtonClick('tabBtn48')
+  ButtonClick('tabBtn4_8')
 }
 
 close_explorer(*) {
   close
-  ButtonClick('tabBtn51')
+  ButtonClick('tabBtn5_1')
 }
 
 newFolder_explorer(*) {
   Send "!{Esc}"
   Send '^+n'
-  ButtonClick('tabBtn52')
+  ButtonClick('tabBtn5_2')
 }
 
 renameFile_explorer(*) {
   Send "!{Esc}"
   Send '{f2}'
-  ButtonClick('tabBtn53')
+  ButtonClick('tabBtn5_3')
 }
 
 psOpenFile_explorer(*) {
   Send "!{Esc}"
   Send '{AppsKey}p'
-  ButtonClick('tabBtn54')
+  ButtonClick('tabBtn5_4')
 }
 
 list_explorer(*) {
   Send "!{Esc}"
   Send '^!5'
-  ButtonClick('tabBtn55')
+  ButtonClick('tabBtn5_5')
 }
 
 information_explorer(*) {
   Send "!{Esc}"
   Send '^!6'
-  ButtonClick('tabBtn56')
+  ButtonClick('tabBtn5_6')
 }
 
 largeIcons_explorer(*) {
   Send "!{Esc}"
   Send '^!2'
-  ButtonClick('tabBtn57')
+  ButtonClick('tabBtn5_7')
 }
 
 extraLargeIcons_explorer(*) {
   Send "!{Esc}"
   Send '^!1'
-  ButtonClick('tabBtn58')
+  ButtonClick('tabBtn5_8')
+}
+
+save_explorer(*) {
+  Send "!{Esc}"
+  Send '^s'
+  ButtonClick('tabBtn5_9')
+}
+
+newTxt_explorer(*) {
+  ; 无法在电脑桌面新建txt，必须是目录才行。
+  Send "!{Esc}"
+  path := explorerGetPath()
+  if path {
+    stem  := path '\temp' FormatTime(, 'yyMMdd_HHmm') '_' ; 文件路径
+    index := 1
+    Loop
+    filePath := Format('{}{:03}.txt', stem, index++) ; 附加唯一的3位数字
+    Until !FileExist(filePath)
+    FileAppend '', filePath ; 创建文件
+    ButtonClick('tabBtn5_10')
+  }
+}
+explorerGetPath(hwnd := 0) {
+  ; Static winTitle := 'ahk_class CabinetWClass'
+  ; hWnd ?    explorerHwnd := WinExist(winTitle ' ahk_id ' hwnd)
+  ;      : ((!explorerHwnd := WinActive(winTitle)) && explorerHwnd := WinExist(winTitle))
+
+  explorerHwnd := WinActive('ahk_class CabinetWClass') ; 检查指定的窗口是否激活
+  If explorerHwnd
+   For window in ComObject('Shell.Application').Windows
+    Try If window && window.hwnd && window.hwnd = explorerHwnd
+     Return window.Document.Folder.Self.Path
+  Return False
+}
+
+returnToThePreviousLevelDirectory_explorer(*) {
+  Send "!{Esc}"
+  Send '!{Up}'
+  ButtonClick('tabBtn5_11')
 }
 
 
@@ -1004,7 +1270,10 @@ LAlt::LCtrl ; 左alt → 左ctrl
 AppsKey::RButton ; 菜单键 → 鼠标右键
 CapsLock::RButton ; 大写锁定 → 鼠标右键
 
-Ins::return ; Ins 按键失效
+; Ins::return ; Ins 按键失效
+Ins::{
+  send '{Esc}'
+}
 
 ^F1::Run "notepad" ; Ctrl F1：打开记事本
 
@@ -1099,6 +1368,7 @@ RAlt::^+!s  ; 右alt → 保存web图片
 
 ; 按组使热键生效
 GroupAdd 'copy123', "ahk_exe Photoshop.exe"
+GroupAdd 'copy123', "ahk_exe Illustrator.exe"
 GroupAdd 'copy123', "ahk_exe notepad.exe"
 GroupAdd 'copy123', "ahk_exe Code.exe"
 GroupAdd 'copy123', "ahk_exe pycharm64.exe"
@@ -1108,10 +1378,14 @@ GroupAdd 'copy123', "ahk_exe DingTalk.exe"
 GroupAdd 'copy123', "ahk_exe WeChat.exe"
 GroupAdd 'copy123', "ahk_exe AutoHotkey64.exe"
 GroupAdd 'copy123', "ahk_exe wps.exe"
+GroupAdd 'copy123', "ahk_exe 2345PicViewer.exe"
+GroupAdd 'copy123', "ahk_exe sublime_text.exe"
+GroupAdd 'copy123', "ahk_exe wechatdevtools.exe"
 #HotIf WinActive("ahk_group copy123")
 1::Send "^c"
 2::Send "^v"
 3::Send "^x"
+4::Send "^a"
 
 
 #HotIf WinActive("ahk_exe explorer.exe")
@@ -1120,6 +1394,3 @@ F1::return
 
 ; #HotIf 指令会影响脚本中在它后面的所有热键和热字串, 直到下一个 #HotIf 指令
 #HotIf
-
-
-
