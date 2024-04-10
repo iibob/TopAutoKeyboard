@@ -15,7 +15,8 @@
 - 剪贴板：复制、粘贴、剪切、纯文本粘贴
 - 翻译：翻译选中的文本或者截图翻译。[百度翻译开放平台](https://api.fanyi.baidu.com/doc/21)
 
-![image](https://github.com/iibob/TopAutoKeyboard/assets/10295975/57ce27f0-88b3-45b4-857d-a6775a5fbba8)
+![img](https://github.com/iibob/TopAutoKeyboard/assets/10295975/16a7d8a4-cb18-4ef3-a1fb-1f33ef3aa728)
+
 
 **使用：**
 1. 安装[AutoHotkey](https://www.autohotkey.com/)
@@ -23,6 +24,13 @@
 <br/>
 
 ## 更新日志
+**2023年11月24日 V1.1.2**
+- PS、文件夹的 Tab 页添加功能
+- 托盘图标菜单优化，以及添加显示主程序功能，以解决偶尔置顶失效
+- 添加“新建记事本”“切换至浏览器”两个常驻功能
+
+<br/>
+
 **2023年11月28日 V1.1.1**
 - 优化切换输入法逻辑，避免切换输入法后，按键会在输入法切换之前执行的问题
 - 支持多个程序集成到一个 tab 中
